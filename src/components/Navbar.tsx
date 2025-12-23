@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import logo from '@/assets/logo.png';
-import { getPhoneUrl } from '@/config/siteConfig';
+import { getPhones } from '@/config/siteConfig';
 
 const navLinks = [
   { label: 'Home', href: '#home' },
@@ -15,6 +14,9 @@ const navLinks = [
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showPhoneDropdown, setShowPhoneDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const phones = getPhones();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +24,16 @@ const Navbar = () => {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowPhoneDropdown(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   const scrollToSection = (href: string) => {
@@ -37,19 +49,7 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
-          <a
-            href="#home"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection('#home');
-            }}
-            className="flex items-center"
-          >
-            <img src={logo} alt="Jay BMW - Always Fresh" className="h-12 md:h-16 w-auto" />
-          </a>
-
+        <div className="flex items-center justify-end md:justify-center h-14 md:h-16">
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
@@ -66,13 +66,40 @@ const Navbar = () => {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
-            <a
-              href={getPhoneUrl()}
-              className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-full text-sm font-semibold hover:bg-accent transition-colors duration-200"
-            >
-              <Phone className="w-4 h-4" />
-              Call Now
-            </a>
+
+            {/* Call Now Dropdown */}
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setShowPhoneDropdown(!showPhoneDropdown)}
+                className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-full text-sm font-semibold hover:bg-accent transition-colors duration-200"
+              >
+                <Phone className="w-4 h-4" />
+                Call Now
+              </button>
+
+              <AnimatePresence>
+                {showPhoneDropdown && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="absolute top-full right-0 mt-2 bg-card rounded-xl shadow-xl border border-border overflow-hidden min-w-[200px]"
+                  >
+                    {phones.map((phone) => (
+                      <a
+                        key={phone.raw}
+                        href={`tel:${phone.raw}`}
+                        className="flex items-center gap-3 px-4 py-3 hover:bg-muted transition-colors"
+                        onClick={() => setShowPhoneDropdown(false)}
+                      >
+                        <Phone className="w-4 h-4 text-primary" />
+                        <span className="text-sm font-medium text-foreground">{phone.display}</span>
+                      </a>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -112,16 +139,30 @@ const Navbar = () => {
                   {link.label}
                 </motion.a>
               ))}
-              <motion.a
-                href={getPhoneUrl()}
+
+              {/* Phone Numbers in Mobile Menu */}
+              <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: navLinks.length * 0.1 }}
-                className="flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full text-base font-semibold mt-2"
+                className="flex flex-col gap-2 mt-2"
               >
-                <Phone className="w-5 h-5" />
-                Call Now
-              </motion.a>
+                <span className="text-sm text-muted-foreground font-medium px-1">Call Us:</span>
+                {phones.map((phone, index) => (
+                  <motion.a
+                    key={phone.raw}
+                    href={`tel:${phone.raw}`}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: (navLinks.length + index + 1) * 0.1 }}
+                    className="flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full text-base font-semibold"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <Phone className="w-5 h-5" />
+                    {phone.display}
+                  </motion.a>
+                ))}
+              </motion.div>
             </div>
           </motion.div>
         )}

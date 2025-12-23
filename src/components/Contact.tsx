@@ -2,34 +2,12 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Phone, MapPin, Clock, Navigation, MessageCircle } from 'lucide-react';
-import { siteConfig, getWhatsAppUrl, getPhoneUrl } from '@/config/siteConfig';
-
-const contactInfo = [
-  {
-    icon: Phone,
-    label: 'Call Us',
-    value: siteConfig.phone.display,
-    href: getPhoneUrl(),
-    action: 'Tap to call',
-  },
-  {
-    icon: MessageCircle,
-    label: 'WhatsApp',
-    value: 'Chat with us',
-    href: getWhatsAppUrl(),
-    action: 'Open WhatsApp',
-  },
-  {
-    icon: Clock,
-    label: 'Opening Hours',
-    value: '10:00 AM - 10:00 PM',
-    action: 'Daily',
-  },
-];
+import { getWhatsAppUrl, getPhones } from '@/config/siteConfig';
 
 const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const phones = getPhones();
 
   const googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=JH+Butter+Momos+Soup+Bar+Mall+Road+Uttarkashi';
 
@@ -69,31 +47,72 @@ const Contact = () => {
             transition={{ delay: 0.3, duration: 0.6 }}
             className="space-y-4"
           >
-            {contactInfo.map((item, index) => (
-              <motion.a
-                key={item.label}
-                href={item.href}
-                target={item.href?.startsWith('https') ? '_blank' : undefined}
-                rel={item.href?.startsWith('https') ? 'noopener noreferrer' : undefined}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
-                className={`flex items-center gap-4 p-5 bg-card border border-border rounded-xl hover-lift ${
-                  item.href ? 'cursor-pointer' : ''
-                }`}
-              >
+            {/* Phone Numbers Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.3, duration: 0.5 }}
+              className="p-5 bg-card border border-border rounded-xl"
+            >
+              <div className="flex items-center gap-4 mb-4">
                 <div className="flex-shrink-0 w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
-                  <item.icon className="w-6 h-6 text-primary" />
+                  <Phone className="w-6 h-6 text-primary" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm text-muted-foreground">{item.label}</p>
-                  <p className="font-semibold text-foreground text-lg">{item.value}</p>
+                  <p className="text-sm text-muted-foreground">Call Us</p>
+                  <p className="font-semibold text-foreground text-lg">Tap to call</p>
                 </div>
-                {item.action && (
-                  <span className="text-xs text-primary font-medium">{item.action}</span>
-                )}
-              </motion.a>
-            ))}
+              </div>
+              <div className="flex flex-col gap-2 ml-[4.5rem]">
+                {phones.map((phone) => (
+                  <a
+                    key={phone.raw}
+                    href={`tel:${phone.raw}`}
+                    className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
+                  >
+                    <Phone className="w-4 h-4" />
+                    <span className="font-medium">{phone.display}</span>
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* WhatsApp Card */}
+            <motion.a
+              href={getWhatsAppUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.4, duration: 0.5 }}
+              className="flex items-center gap-4 p-5 bg-card border border-border rounded-xl hover-lift cursor-pointer"
+            >
+              <div className="flex-shrink-0 w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
+                <MessageCircle className="w-6 h-6 text-primary" />
+              </div>
+              <div className="flex-1">
+                <p className="text-sm text-muted-foreground">WhatsApp</p>
+                <p className="font-semibold text-foreground text-lg">Chat with us</p>
+              </div>
+              <span className="text-xs text-primary font-medium">Open WhatsApp</span>
+            </motion.a>
+
+            {/* Opening Hours Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.5, duration: 0.5 }}
+              className="flex items-center gap-4 p-5 bg-card border border-border rounded-xl"
+            >
+              <div className="flex-shrink-0 w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
+                <Clock className="w-6 h-6 text-primary" />
+              </div>
+              <div className="flex-1">
+                <p className="text-sm text-muted-foreground">Opening Hours</p>
+                <p className="font-semibold text-foreground text-lg">10:00 AM - 10:00 PM</p>
+              </div>
+              <span className="text-xs text-primary font-medium">Daily</span>
+            </motion.div>
 
             {/* Address Card */}
             <motion.a

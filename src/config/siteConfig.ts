@@ -5,15 +5,21 @@
  */
 
 export const siteConfig = {
-  // Phone Number
-  phone: {
-    display: "+91 87555 87919", // Formatted for display
-    raw: "+918755587919", // Used in tel: links
-  },
+  // Phone Numbers for calling
+  phones: [
+    {
+      display: "+91 93895 88452",
+      raw: "+919389588452",
+    },
+    {
+      display: "+91 87551 71424",
+      raw: "+918755171424",
+    },
+  ],
 
   // WhatsApp Configuration
   whatsapp: {
-    number: "918755587919", // Without + sign for wa.me URL
+    number: "918755084885", // Without + sign for wa.me URL
     defaultMessage: "Hi! I would like to know more about your menu.",
   },
 
@@ -33,6 +39,10 @@ export const getWhatsAppUrl = (message?: string) => {
   )}`;
 };
 
-export const getPhoneUrl = () => {
-  return `tel:${siteConfig.phone.raw}`;
+export const getPhoneUrl = (index: number = 0) => {
+  return `tel:${siteConfig.phones[index].raw}`;
+};
+
+export const getPhones = () => {
+  return siteConfig.phones;
 };

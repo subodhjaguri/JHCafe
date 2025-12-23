@@ -30,7 +30,7 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 pt-20 pb-12 text-center">
+      <div className="relative z-10 container mx-auto px-4 pt-16 pb-12 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -38,14 +38,14 @@ const Hero = () => {
           className="flex flex-col items-center"
         >
           {/* Logo */}
-          {/* <motion.img
+          <motion.img
             src={logo}
             alt="Jay BMW - Always Fresh"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
             className="w-48 sm:w-56 md:w-72 lg:w-80 h-auto mb-6"
-          /> */}
+          />
           {/* Main Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}

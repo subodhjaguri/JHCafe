@@ -1,6 +1,6 @@
 import { Instagram, Facebook, Twitter, Heart } from 'lucide-react';
 import logo from '@/assets/logo.png';
-import { siteConfig, getPhoneUrl } from '@/config/siteConfig';
+import { siteConfig, getPhones } from '@/config/siteConfig';
 
 const socialLinks = [
   { icon: Instagram, href: siteConfig.social.instagram, label: 'Instagram' },
@@ -77,11 +77,13 @@ const Footer = () => {
               <li>Gaur Bhawan, Azad Maidan</li>
               <li>Mall Road, Uttarkashi - 249193</li>
               <li>Uttarakhand, India</li>
-              <li className="pt-2">
-                <a href={getPhoneUrl()} className="hover:text-primary transition-colors">
-                  {siteConfig.phone.display}
-                </a>
-              </li>
+              {getPhones().map((phone) => (
+                <li key={phone.raw} className="pt-1 first:pt-2">
+                  <a href={`tel:${phone.raw}`} className="hover:text-primary transition-colors">
+                    {phone.display}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

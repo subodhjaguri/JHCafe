@@ -4,18 +4,22 @@ import { useRef, useState } from 'react';
 import { X } from 'lucide-react';
 
 import gallery1 from '@/assets/gallery-1.jpg';
-import gallery2 from '@/assets/gallery-2.jpg';
 import gallery3 from '@/assets/gallery-3.jpg';
 import gallery4 from '@/assets/gallery-4.jpg';
-import gallery5 from '@/assets/gallery-5.jpg';
 import gallery6 from '@/assets/gallery-6.jpg';
+import galleryPizza from '@/assets/gallery-pizza.avif';
+import galleryWrap from '@/assets/gallery-wrap.webp';
+import galleryPizzas from '@/assets/gallery-pizzas.webp';
+import galleryMomosNew from '@/assets/gallery-momos-new.jpg';
 
 const images = [
   { src: gallery1, alt: 'JH Butter Momos exterior' },
-  { src: gallery2, alt: 'Delicious momos plate' },
+  { src: galleryMomosNew, alt: 'Butter Momos with chutney' },
   { src: gallery3, alt: 'Food preparation' },
+  { src: galleryWrap, alt: 'Delicious wrap with Coca-Cola' },
+  { src: galleryPizzas, alt: 'Fresh pizzas in preparation' },
   { src: gallery4, alt: 'Restaurant ambience' },
-  { src: gallery5, alt: 'Signature dishes' },
+  { src: galleryPizza, alt: 'Our signature pizza' },
   { src: gallery6, alt: 'Café atmosphere' },
 ];
 
@@ -61,17 +65,13 @@ const Gallery = () => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={isInView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ delay: 0.1 * index, duration: 0.5 }}
-                className={`image-hover rounded-xl overflow-hidden cursor-pointer ${
-                  index === 0 ? 'md:col-span-2 md:row-span-2' : ''
-                }`}
+                className="image-hover rounded-xl overflow-hidden cursor-pointer"
                 onClick={() => setSelectedImage(image.src)}
               >
                 <img
                   src={image.src}
                   alt={image.alt}
-                  className={`w-full object-cover ${
-                    index === 0 ? 'h-64 md:h-full' : 'h-40 md:h-52'
-                  }`}
+                  className="w-full h-48 md:h-56 object-cover"
                 />
               </motion.div>
             ))}

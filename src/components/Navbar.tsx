@@ -6,6 +6,7 @@ import { getPhones } from '@/config/siteConfig';
 const navLinks = [
   { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },
+  { label: 'Our Story', href: '#owner' },
   { label: 'Menu', href: '#menu' },
   { label: 'Gallery', href: '#gallery' },
   { label: 'Contact', href: '#contact' },

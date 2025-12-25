@@ -7,19 +7,16 @@ import { Clock, ChefHat, Users } from "lucide-react";
 // import ownerPhoto1 from '@/assets/owner-1.jpg';
 // import ownerPhoto2 from '@/assets/owner-2.jpg';
 // import ownerPhoto3 from '@/assets/owner-3.jpg';
-// import ownerPhoto4 from '@/assets/owner-4.jpg';
 
 // Temporary: using food images as placeholders until owner photos are added
 import owner1 from "@/assets/owner-1.png";
 import owner2 from "@/assets/owner-2.jpeg";
 import owner3 from "@/assets/owner-3.jpeg";
-import owner4 from "@/assets/owner-4.jpeg";
 
 const ownerImages = [
   { src: owner1, alt: "Owner preparing momos" },
   { src: owner2, alt: "Owner at the cafe" },
   { src: owner3, alt: "Owner with customers" },
-  { src: owner4, alt: "Owner in kitchen" },
 ];
 
 const stats = [
@@ -160,8 +157,8 @@ const Owner = () => {
               experience.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-10">
-              Today, JH Butter Momos & Soup Bar stands as a testament to this
-              journey - a place where tradition meets passion, and every
+              Today, Jay Butter Momos Wala & JH Cafe stands as a testament to
+              this journey - a place where tradition meets passion, and every
               customer becomes part of our extended family.
             </p>
 

@@ -36,7 +36,7 @@ const Footer = () => {
               />
               <div>
                 <h3 className="font-serif text-xl font-bold text-gradient-gold">
-                  Jay Butter Momos Wala
+                  Jay Butter Momos Wala & JH Cafe
                 </h3>
                 <p className="text-foreground/80 font-medium">& JH Cafe</p>
               </div>
@@ -112,8 +112,8 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-border pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground text-center sm:text-left">
-            © {new Date().getFullYear()} JH Butter Momos & Soup Bar. All rights
-            reserved.
+            © {new Date().getFullYear()} Jay Butter Momos Wala & JH Cafe. All
+            rights reserved.
           </p>
           <p className="text-sm text-muted-foreground flex items-center gap-1">
             Made with <Heart className="w-4 h-4 text-primary fill-primary" /> in

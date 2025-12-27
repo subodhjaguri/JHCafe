@@ -36,7 +36,7 @@ const Footer = () => {
               />
               <div>
                 <h3 className="font-serif text-xl font-bold text-gradient-gold">
-                  Jay Butter Momos Wala & JH Cafe
+                  Jay Butter Momos Wala
                 </h3>
                 <p className="text-foreground/80 font-medium">& JH Cafe</p>
               </div>

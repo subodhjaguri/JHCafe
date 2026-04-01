@@ -3,20 +3,20 @@ import { useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { Clock, ChefHat, Users } from "lucide-react";
 
-// TODO: Replace these with actual owner photos
-// import ownerPhoto1 from '@/assets/owner-1.jpg';
-// import ownerPhoto2 from '@/assets/owner-2.jpg';
-// import ownerPhoto3 from '@/assets/owner-3.jpg';
-
-// Temporary: using food images as placeholders until owner photos are added
 import owner1 from "@/assets/owner-1.png";
 import owner2 from "@/assets/owner-2.jpeg";
 import owner3 from "@/assets/owner-3.jpeg";
+import owner4 from "@/assets/owner-4.jpeg";
+import owner5 from "@/assets/owner-5.jpeg";
+import owner6 from "@/assets/owner-6.jpeg";
 
 const ownerImages = [
   { src: owner1, alt: "Owner preparing momos" },
   { src: owner2, alt: "Owner at the cafe" },
   { src: owner3, alt: "Owner with customers" },
+  { src: owner4, alt: "Owner portrait" },
+  { src: owner5, alt: "Owner at the mountains" },
+  { src: owner6, alt: "Owner overlooking the valley" },
 ];
 
 const stats = [
@@ -86,13 +86,13 @@ const Owner = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="relative"
           >
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
+            <div className="relative rounded-2xl overflow-hidden aspect-[3/4]">
               {ownerImages.map((image, index) => (
                 <motion.img
                   key={image.alt}
                   src={image.src}
                   alt={image.alt}
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="absolute inset-0 w-full h-full object-cover object-top"
                   initial={{ opacity: 0 }}
                   animate={{
                     opacity: currentSlide === index ? 1 : 0,
